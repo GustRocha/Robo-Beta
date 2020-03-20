@@ -10,11 +10,11 @@ import time
 import random
 #Variaveis 
 driver = webdriver.Chrome(executable_path=r'Z:\SERVICE-DESK\Robo Beta\chromedriver.exe')
-email = "servicedesk.robo15@gmail.com"
-senha = "Sd2019monitoracao"
+email = "dftgustavorocha@gmail.com"
+senha = "guri1997"
 #driver = webdriver.Chrome('')
 disponivel = ""
-listr = ["https://www.dafiti.com.br/Bolsa-Colcci-Redonda-Preta-3797015.html", "https://www.dafiti.com.br/Jogo-de-Banho-5pcs-Buddemeyer-Oxford-Azul-4076766.html", "https://www.dafiti.com.br/Bolsa-Capodarte-Logo-Caramelo-4690776.html", "https://www.dafiti.com.br/Kit-10pcs-Meia-Lupo-Cano-Medio-Liso-Preto-4599000.html"]
+listr = ["https://www.dafiti.com.br/Bolsa-Colcci-Redonda-Preta-3797015.html", "https://www.dafiti.com.br/Bolsa-Capodarte-Logo-Caramelo-4690776.html", "https://www.dafiti.com.br/Kit-10pcs-Meia-Lupo-Cano-Medio-Liso-Preto-4599000.html"]
 urlr = random.choice(listr)
 conta = 0
 while (conta != 3):
@@ -52,17 +52,21 @@ while (conta != 3):
         time.sleep(5)
         driver.find_element_by_xpath(u"//img[@alt='Calçados, Sapatos, Roupas e Acessórios na Dafiti']").click()
         time.sleep(5)
-        driver.find_element_by_xpath("//div[@id='wrapper']/div[2]/div[2]/div/div/div[3]/div[3]/a/span").click()
-        try:
-             sac = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'h3')).text
-        except NoSuchElementException:
-           pass
+        #driver.find_element_by_xpath("//div[@id='wrapper']/div[2]/div[2]/div/div/div[3]/div[3]/a/span").click()
+        driver.get("https://secure.dafiti.com.br/cart/")
         
 
-        if sac == "Sua sacola está vazia...":
-            print("funfo")
 
-            pass
+        try:
+
+            element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="wrapper"]/div[4]/h3'))).text
+            time.sleep(5)
+                        
+        except NoSuchElementException:
+            driver.quit()
+
+        if element == "SUA SACOLA ESTÁ VAZIA...":
+            
 
        #Carrinho
         try:
@@ -73,7 +77,7 @@ while (conta != 3):
             pass
 
         # Adiciona ao carrinho 
-        #driver.get("https://secure.dafiti.com.br/cart/")
+        #
         time.sleep(5)  
         # Entra no carrinho      
         #driver.find_element(By.CSS_SELECTOR, ".cart-preview-icon").click()
